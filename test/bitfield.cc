@@ -45,4 +45,11 @@ TEST_CASE("Bitfield set", "[bitfield]")
     bits.set<f::f3>(0);
     REQUIRE(bits.val() == 0b000011110110);
     REQUIRE(bits == 0b000011110110);
+
+    bits.set<f::f1>(0);
+    bits.set<f::f2>(0xfffff);
+    bits.set<f::f3>(0);
+    REQUIRE(bits.val() == 0b000011110000);
+    REQUIRE(bits == 0b000011110000);
+
 }

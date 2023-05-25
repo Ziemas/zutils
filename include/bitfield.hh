@@ -44,7 +44,7 @@ public:
         constexpr auto mask { field_masks[idx] };
         constexpr auto lsb { field_lsbs[idx] };
         auto v { value & ~mask };
-        value = v | (val * lsb);
+        value = v | ((val * lsb) & mask);
     };
 
     constexpr Underlying val() noexcept { return value; };
