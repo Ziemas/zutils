@@ -13,7 +13,7 @@
 
 namespace zutil {
 
-template <auto Id, unsigned MSB, unsigned LSB>
+template <auto Id, unsigned MSB, unsigned LSB = MSB>
 struct Field {
     static inline constexpr auto id { Id };
     static inline constexpr auto mask { ((1UL << ((MSB + 1) - LSB)) - 1) << LSB };
@@ -35,7 +35,7 @@ public:
         constexpr auto lsb { field_lsbs[idx] };
         auto v { value & mask };
         return v / lsb;
-    };
+    }
 
     template <auto Field>
     constexpr void set(Underlying val) noexcept
@@ -45,7 +45,7 @@ public:
         constexpr auto lsb { field_lsbs[idx] };
         auto v { value & ~mask };
         value = v | ((val * lsb) & mask);
-    };
+    }
 
     constexpr Underlying val() noexcept { return value; };
 

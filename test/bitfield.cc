@@ -26,6 +26,28 @@ TEST_CASE("Bitfield get", "[bitfield]")
     REQUIRE(bits.val() == 0b000011110110);
 }
 
+TEST_CASE("Single bit", "[bitfield]")
+{
+    enum class f {
+        f1,
+        f2,
+        f3
+    };
+
+    Bitfield<unsigned,
+        Field<f::f1, 0>,
+        Field<f::f2, 1>,
+        Field<f::f3, 2>>
+        bits;
+
+    bits.set<f::f1>(1);
+    bits.set<f::f2>(0);
+    bits.set<f::f3>(1);
+    REQUIRE(bits.val() == 0b101);
+    bits.set<f::f2>(1);
+    REQUIRE(bits.val() == 0b111);
+}
+
 TEST_CASE("Bitfield set", "[bitfield]")
 {
     enum class f {
@@ -51,5 +73,4 @@ TEST_CASE("Bitfield set", "[bitfield]")
     bits.set<f::f3>(0);
     REQUIRE(bits.val() == 0b000011110000);
     REQUIRE(bits == 0b000011110000);
-
 }
